@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobi.Comm - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* Navbar Styling */
+        .navbar {
+            background: linear-gradient(90deg, #009688, #00796B);
+        }
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700 !important;
+            text-transform: uppercase;
+        }
+        .nav-link {
+            color: white !important;
+            font-size: 1.2rem;
+        }
+        .avatar-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .avatar-icon:hover {
+            background-color:  #FFD700;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
+        }
+
+
+         /*  Hero Section */
+         .hero-section {
+            text-align: center;
+            padding: 60px 0;
+            background: rgb(188, 195, 197);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        .hero-section h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0e0f0f;
+        }
+
+        /*  Carousel */
+        .carousel-inner img {
+            height: 350px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        /* Quick Recharge Section */
+        .quick-recharge {
+            background: #E0F2F1;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 30px auto;
+            width: 60%;
+        }
+        .recharge-input {
+            width: 80%;
+            padding: 15px;
+            border-radius: 25px;
+            border: 2px solid #009688;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+          /*  Enhanced Popular Plans */
+          .popular-plans {
+            padding: 40px;
+            background: linear-gradient(90deg, #00796B, #009688);
+            color: white;
+            }
+            .plan-wrapper {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+            .plan-card {
+                background: white;
+                border-radius: 15px;
+                padding: 30px;
+                width: 300px;
+                text-align: center;
+                transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+                position: relative;
+                overflow: hidden;
+            }
+            .plan-card::before {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 5px;
+                top: 0;
+                left: 0;
+                background: linear-gradient(90deg, #FFA000, #FFD700);
+            }
+            .plan-card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+            }
+            .plan-card h4 {
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin-bottom: 10px;
+                color: #00796B;
+            }
+            .plan-card p {
+                font-size: 1.2rem;
+                color: #444;
+            }
+            .plan-card .btn-plan {
+                background: #FFA000;
+                color: white;
+                border-radius: 20px;
+                font-weight: bold;
+                transition: background 0.3s ease;
+            }
+            .plan-card .btn-plan:hover {
+                background: #FF8F00;
+            }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 40px;
+            background: #E1F5FE;
+            text-align: center;
+        }
+
+        /* Footer */
+        .footer {
+            background: #37474F;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .footer a {
+            color: #FFD700;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!--  Navbar with Avatar Dropdown -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Mobi.Comm</a>
+            <div class="dropdown">
+                <div class="avatar-icon" data-bs-toggle="dropdown">
+                    <i class="fas fa-user"></i>
+                </div>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="login.html">Login</a></li>
+                    <li><a class="dropdown-item" href="signup.html">Sign Up</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+     <!--  Hero Section -->
+     <div class="hero-section">
+        <h2>Welcome to <span style="color: #00796B;">Mobi.Comm</span> Service</h2>
+        <p>Recharge your mobile in just a few clicks.</p>
+    </div>
+
+    <!--  Carousel -->
+    <div id="offerCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="Images/image1.png" class="d-block w-100">
+            </div>
+            <div class="carousel-item">
+                <img src="Images/image2.jpeg" class="d-block w-100">
+            </div>
+        </div>
+    </div>
+
+   <!--  Quick Recharge Section -->
+<div class="quick-recharge">
+    <h3>Quick Recharge</h3>
+    <input type="text" id="mobileNumber" class="recharge-input" placeholder="+91 Enter Mobile Number">
+    <button class="btn btn-success" id="rechargeButton">Recharge Now</button>
+    <div id="error-message" style="color: red; margin-top: 10px;"></div>
+</div>
+
+<div class="popular-plans">
+    <div id="plans" class="content-section">
+        <h3 style="text-align: center; padding-bottom: 20px;">Popular Plans</h3>
+        <div class="plan-wrapper">
+            <div class="plan-card" data-price="599" data-validity="28 Days" data-data="2GB/day">
+                <h4>₹599</h4>
+                <p>28 Days | 2GB/day | Unlimited Calls</p>
+                <button class="btn btn-plan recharge-btn">Recharge</button>
+            </div>
+            <div class="plan-card" data-price="999" data-validity="90 Days" data-data="5GB/day">
+                <h4>₹999</h4>
+                <p>90 Days | 5GB/day | Unlimited Calls</p>
+                <button class="btn btn-plan recharge-btn">Recharge</button>
+            </div>
+            <div class="plan-card" data-price="599" data-validity="28 Days" data-data="2GB/day">
+                <h4>₹599</h4>
+                <p>28 Days | 2GB/day | Unlimited Calls</p>
+                <button class="btn btn-plan recharge-btn">Recharge</button>
+            </div>
+            <div class="plan-card" data-price="999" data-validity="90 Days" data-data="5GB/day">
+                <h4>₹999</h4>
+                <p>90 Days | 5GB/day | Unlimited Calls</p>
+                <button class="btn btn-plan recharge-btn">Recharge</button>
+            </div>
+            <div class="plan-card" data-price="599" data-validity="28 Days" data-data="2GB/day">
+                <h4>₹599</h4>
+                <p>28 Days | 2GB/day | Unlimited Calls</p>
+                <button class="btn btn-plan recharge-btn">Recharge</button>
+            </div>
+            <div class="plan-card" data-price="999" data-validity="90 Days" data-data="5GB/day">
+                <h4>₹999</h4>
+                <p>90 Days | 5GB/day | Unlimited Calls</p>
+                <button class="btn btn-plan recharge-btn">Recharge</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <h3 style="text-align: center; padding-bottom: 20px;">Frequently Asked Questions</h3>
+        <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#faq1">How to recharge?</button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse">
+                    <div class="accordion-body">Enter your mobile number, select a plan, and proceed to payment.</div>
+                </div>
+                <h2 class="accordion-header">
+                    <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#faq2">How to recharge?</button>
+                </h2>
+                <div id="faq2" class="accordion-collapse collapse">
+                    <div class="accordion-body">Enter your mobile number, select a plan, and proceed to payment.</div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2025 Mobi.Comm. All Rights Reserved.</p>
+        <p><a href="#">About Us</a> | <a href="#">Contact Us</a></p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('rechargeButton').addEventListener('click', function() {
+            var mobileNumber = document.getElementById('mobileNumber').value;
+            var errorMessage = document.getElementById('error-message');
+    
+            errorMessage.innerHTML = '';
+            if (!mobileNumber) {
+                errorMessage.innerHTML = 'Please enter your mobile number.';
+                return;
+            }
+            var phoneRegex = /^\+91\d{10}$/;
+            if (!phoneRegex.test(mobileNumber)) {
+                errorMessage.innerHTML = 'Please enter a valid phone number (e.g., +91XXXXXXXXXX).';
+                return;
+            }
+    
+            window.location.href = 'plans.html'; 
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+        const rechargeButtons = document.querySelectorAll(".recharge-btn");
+
+        rechargeButtons.forEach(btn => {
+            btn.addEventListener("click", function () {
+                let planCard = this.closest(".plan-card");
+                let planData = {
+                    price: planCard.dataset.price,
+                    validity: planCard.dataset.validity,
+                    data: planCard.dataset.data
+                };
+
+                // Redirect to recharge page with selected plan details
+                window.location.href = `payment_simulation.html?price=${planData.price}&validity=${planData.validity}&data=${planData.data}`;
+            });
+        });
+    });
+    </script>
+</body>
+</html>

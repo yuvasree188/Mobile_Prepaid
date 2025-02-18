@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - Mobi.Comm</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /*  Navbar Styling */
+        .navbar {
+            background: linear-gradient(90deg, #009688, #00796B);
+        }
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700 !important;
+            text-transform: uppercase;
+        }
+        .nav-link {
+            color: white !important;
+            font-size: 1.2rem;
+        }
+        .avatar-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .avatar-icon:hover {
+            background-color:  #FFD700;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
+        }
+
+        .container-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 30px;
+            background-color: #f4f4f4;
+            flex-wrap: wrap;
+            max-width: 1100px;
+            margin: 0 auto;
+            margin-top: 40px;
+            border-radius: 10px;
+        }
+        
+        .image-container,
+        .signup-container {
+            flex: 1 1 45%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 600px;
+            max-width: 500px;
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .signup-container {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+        }
+        .form-control {
+            font-size: 1.1rem;
+        }
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            display: block;
+            margin-top: 0.5rem;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        #signupBtn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+        #signupBtn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    
+    <!--  Navbar  -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Mobi.Comm</a>
+            <div class="dropdown">
+                <div class="avatar-icon" data-bs-toggle="dropdown">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-box">
+        <!-- Image Side -->
+        <div class="image-container">
+            <img src="Images/image2.jpeg" alt="Signup Image">
+        </div>
+        
+        <!-- Signup Form Side -->
+        <div class="signup-container">
+            <form id="signupForm" action="login.html" onsubmit= true>
+                <h3 class="text-center mb-4">Signup</h3>
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="fullName" placeholder="Enter your name" >
+                    <span class="error-message" id="fullNameError"></span>
+
+                </div>
+                <div class="mb-3">
+                    <label for="mobileNumber" class="form-label">Mobile Number</label>
+                    <input type="tel" class="form-control" id="mobileNumber" placeholder="Enter your mobile number">
+                    <span class="error-message" id="mobileError"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" >
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword">
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+                <button type="submit" id="signupBtn">Signup</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+            
+    
+            let fullName = document.getElementById("fullName").value.trim();
+            let mobileNumber = document.getElementById("mobileNumber").value.trim();
+            let password = document.getElementById("password").value.trim();
+            let confirmPassword = document.getElementById("confirmPassword").value.trim();
+    
+            let fullNameError = document.getElementById("fullNameError");
+            let mobileError = document.getElementById("mobileError");
+            let passwordError = document.getElementById("passwordError");
+            let confirmPasswordError = document.createElement("span"); 
+    
+            let isValid = true;
+            
+            fullNameError.textContent = "";
+            mobileError.textContent = "";
+            passwordError.textContent = "";
+            confirmPasswordError.textContent = "";
+    
+            if (fullName === "") {
+                fullNameError.textContent = "Full Name is required.";
+                fullNameError.style.color = "red";
+                isValid = false;
+            }
+    
+            let mobileRegex = /^\+91\d{10}$/;
+            if (!mobileRegex.test(mobileNumber)) {
+                mobileError.textContent = "Enter a valid format (+91xxxxxxxxxx).";
+                mobileError.style.color = "red";
+                isValid = false;
+            }
+    
+            if (password.length < 6) {
+                passwordError.textContent = "Password must be at least 6 characters.";
+                passwordError.style.color = "red";
+                isValid = false;
+            }
+    
+         
+            if (password !== confirmPassword) {
+                confirmPasswordError.textContent = "Passwords do not match.";
+                confirmPasswordError.style.color = "red";
+                document.getElementById("confirmPassword").after(confirmPasswordError);
+                isValid = false;
+            }
+    
+            if (isValid) {
+                this.submit(); 
+            }
+        });
+    
+     
+        document.getElementById("fullName").addEventListener("input", function () {
+            document.getElementById("fullNameError").textContent = "";
+        });
+    
+        document.getElementById("mobileNumber").addEventListener("input", function () {
+            document.getElementById("mobileError").textContent = "";
+        });
+    
+        document.getElementById("password").addEventListener("input", function () {
+            document.getElementById("passwordError").textContent = "";
+        });
+    
+        document.getElementById("confirmPassword").addEventListener("input", function () {
+            let confirmPasswordError = document.getElementById("confirmPassword").nextElementSibling;
+            if (confirmPasswordError) confirmPasswordError.textContent = "";
+        });
+    </script>
+    
+    
+</body>
+</html>
