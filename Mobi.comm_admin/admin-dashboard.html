@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Mobi.Comm</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="showPage('dashboard')">Mobi.Comm</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('dashboard')">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('subscribers')">Subscribers List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('recharge-history')">Recharge History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('plans')">Plans</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('notifications')">Notifications</a>
+                    </li>
+                </ul>
+                <div class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <img id="navbarAvatar" src="Images/profile.jpeg" alt="Avatar" class="rounded-circle" width="40"
+                            height="40">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#" onclick="showPage('profile')">Profile</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="showPage('reportAndAnalysis')">Report &
+                                Analysis</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-danger" href="admin-login.html">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <div id="dashboard" class="page active">
+            <h2 style="text-align: center; margin-bottom: 20px;">Admin Dashboard</h2>
+
+            <!-- Stats Cards -->
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Total Subscribers</h5>
+                        </div>
+                        <div class="card-body">
+                            <p><b>1,250</b></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Active Plans</h5>
+                        </div>
+                        <div class="card-body">
+                            <p><b>15</b></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Expiring Plans (Next 3 Days)</h5>
+                        </div>
+                        <div class="card-body">
+                            <p><b>2</b></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Revenue Generated</h5>
+                        </div>
+                        <div class="card-body">
+                            <p><b>₹4,200</b></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="mt-4" style="text-align: center;margin-bottom: 20px;">Subscribers List (Expiring with in 3 days)
+            </h4>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Mobile No.</th>
+                        <th>Plan</th>
+                        <th>Plan Expiry Date</th>
+                        <th>Last Recharge</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Yuvasree</td>
+                        <td>+91 9876543210</td>
+                        <td>Unlimited Plan</td>
+                        <td>2025-02-20</td>
+                        <td>2025-01-20</td>
+                        <td>
+                            <button class="btn btn-view-history"
+                                onclick="viewHistory('Yuvasree', '+91 9876543210','₹399 - Unlimited Data', '2025-01-20')">View
+                                History</button>
+                            <button class="btn btn-warning ms-2"
+                                onclick="notifyUser('Yuvasree', '+91 9876543210')">Notify User</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Vaishiya</td>
+                        <td>+91 9876543211</td>
+                        <td>Basic Plan</td>
+                        <td>2025-02-22</td>
+                        <td>2025-01-18</td>
+                        <td>
+                            <button class="btn btn-view-history"
+                                onclick="viewHistory('Vaishiya', '+91 9876543211', '₹299 - 2GB/day', '2025-01-18')">View
+                                History</button>
+                            <button class="btn btn-warning ms-2"
+                                onclick="notifyUser('Vaishiya', '+91 9876543211')">Notify User</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- Modal for View History -->
+        <div class="modal fade" id="historyModal" tabindex="-1" aria-labelledby="historyModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="historyModalLabel">Recharge History</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Name:</strong> <span id="userName"></span></p>
+                        <p><strong>Mobile Number:</strong> <span id="userMobile"></span></p>
+                        <p><strong>Last Recharge Plan:</strong> <span id="lastRechargePlan"></span></p>
+                        <p><strong>Last Recharge Date:</strong> <span id="lastRechargeDate"></span></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subscribers list -->
+
+        <div id="subscribers" class="page">
+            <h2 style="text-align: center;margin-bottom: 20px;">Subscriber Management</h2>
+
+            <!-- Search Bar -->
+            <div class="search-bar position-relative">
+                <input type="text" class="form-control ps-5" id="search"
+                    placeholder="Search Subscribers by Name or Mobile Number">
+                <i class="fas fa-search position-absolute text-muted"
+                    style="top: 50%; left: 15px; transform: translateY(-50%);"></i>
+            </div>
+
+
+            <!-- Subscribers Table -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 style="text-align: center;">Subscribers List</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Mobile No.</th>
+                                <th>Plan</th>
+                                <th>Expiry Date</th>
+                                <th>Last Recharge</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subscriber-list">
+                            <tr>
+                                <td>Yuvasree</td>
+                                <td>+91 9876543210</td>
+                                <td>Unlimited Data Plan</td>
+                                <td>2025-03-28</td>
+                                <td>2025-01-20</td>
+                                <td>
+                                    <button class="btn btn-view-history"
+                                        onclick="viewHistory('Yuvasree', '+91 9876543210' ,'2025-03-28','2025-01-20')">View
+                                        History</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Vaishiya</td>
+                                <td>+91 9876543211</td>
+                                <td>1GB Daily Plan</td>
+                                <td>2025-02-22</td>
+                                <td>2025-01-18</td>
+                                <td>
+                                    <button class="btn btn-view-history"
+                                        onclick="viewHistory('Vaishiya', '+91 9876543211','2025-02-22','2025-01-18')">View
+                                        History</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Subscriber 1</td>
+                                <td>+91 6574812039</td>
+                                <td>1GB Daily Plan</td>
+                                <td>2025-02-23</td>
+                                <td>2025-01-18</td>
+                                <td>
+                                    <button class="btn btn-view-history"
+                                        onclick="viewHistory('Subscriber 1', '+91 6574812039','2025-02-23','2025-01-18')">View
+                                        History</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Subscriber 2</td>
+                                <td>+91 6932580741</td>
+                                <td>1GB Daily Plan</td>
+                                <td>2025-02-20</td>
+                                <td>2025-01-18</td>
+                                <td>
+                                    <button class="btn btn-view-history"
+                                        onclick="viewHistory('Subscriber 2', '+91 6932580741','2025-02-20','2025-01-18')">View
+                                        History</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- recharge -->
+
+        <div id="recharge-history" class="page">
+            <h2 style="text-align: center; margin-bottom: 20px;">Recharge History Management</h2>
+
+            <!-- Filters -->
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <input type="date" class="form-control" id="filter-date" placeholder="Select Date">
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" id="filter-payment-mode">
+                        <option value="" disabled selected>--Select Payment Mode--</option>
+                        <option value="upi">UPI</option>
+                        <option value="credit">Credit Card</option>
+                        <option value="debit">Debit Card</option>
+                        <option value="bank">Bank Transfer</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" id="filter-plan-type">
+                        <option value="" disabled selected>--Select Plan Type--</option>
+                        <option value="data">Data Booster Plans</option>
+                        <option value="unlimited">Unlimited Plans</option>
+                        <option value="Basic">Basic Plans</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary w-100" onclick="filterHistory()">Filter</button>
+                </div>
+            </div>
+
+            <!-- Recharge History Table -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 style="text-align: center;">Recharge History</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-hover" id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Plan Name</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Payment Mode</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="data">
+                                <td>Unlimited Plan</td>
+                                <td>2025-01-10</td>
+                                <td>₹499</td>
+                                <td>UPI</td>
+                                <td>Successful</td>
+                            </tr>
+                            <tr class="data">
+                                <td>Basic Plan</td>
+                                <td>2025-01-12</td>
+                                <td>₹299</td>
+                                <td>Credit Card</td>
+                                <td>Failed</td>
+                            </tr>
+                            <tr class="data">
+                                <td>Data Booster Plan</td>
+                                <td>2025-01-15</td>
+                                <td>₹349</td>
+                                <td>Bank Transfer</td>
+                                <td>Successful</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-warning ms-2 mt-4" onclick="exportData()">Export to CSV</button>
+                    <button class="btn btn-warning ms-2 mt-4" onclick="exportPDF()">Export to PDF</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plan Management -->
+
+        <div id="plans" class="page">
+            <h2 style="text-align: center; margin-bottom: 20px;">Plan Management</h2>
+
+            <!-- Filters -->
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <input type="text" id="search-plan-name" class="form-control" placeholder="Search by Plan Name"
+                        oninput="applyFilters()">
+                </div>
+                <div class="col-md-3">
+                    <select id="filter-price" class="form-control" onchange="applyFilters()">
+                        <option value="" disabled selected>--Orber by Price--</option>
+                        <option value="low-to-high">Price Low to High</option>
+                        <option value="high-to-low">Price High to Low</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="filter-status" class="form-control" onchange="applyFilters()">
+                        <option value="" disabled selected>--Select Status--</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#addPlanModal"
+                        onclick="openAddPlanModal()">+ Add New Plan</button>
+                </div>
+            </div>
+
+            <!-- Plans content -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 style="text-align: center;">Plans</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-hover" id="plans-table">
+                        <thead>
+                            <tr>
+                                <th>Plan Name</th>
+                                <th>Price (₹)</th>
+                                <th>Validity</th>
+                                <th>Data Benefits</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamic Plan Rows Here -->
+                        </tbody>
+                    </table>
+                    <button class="btn btn-warning ms-2 mt-4" onclick="exportPlans()">Export to CSV</button>
+                    <button class="btn btn-warning ms-2 mt-4" onclick="exportPDF()">Export to PDF</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Adding/Editing Plans -->
+        <div class="modal fade" id="addPlanModal" tabindex="-1" aria-labelledby="addPlanModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addPlanModalLabel">Add/Edit Plan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="plan-form" onsubmit="handleFormSubmit(event)">
+                            <div class="mb-3">
+                                <label for="plan-name" class="form-label">Plan Name</label>
+                                <input type="text" class="form-control" id="plan-name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="plan-price" class="form-label">Price</label>
+                                <input type="number" class="form-control" id="plan-price" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="plan-validity" class="form-label">Validity</label>
+                                <input type="text" class="form-control" id="plan-validity" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="plan-data-benefits" class="form-label">Data Benefits</label>
+                                <input type="text" class="form-control" id="plan-data-benefits" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="plan-status" class="form-label">Status</label>
+                                <select class="form-control" id="plan-status">
+                                    <option value="" disabled selected>--Select status--</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Plan</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Management -->
+
+        <div id="notifications" class="page">
+            <h2 style="text-align: center;">Notification Management</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 style="text-align: center;margin-bottom: 20px;">Send a Notification</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="notificationForm">
+                                <div class="mb-3">
+                                    <label for="subscriberSelect" class="form-label">Select Subscriber</label>
+                                    <input type="text" id="subscriberSelect" class="form-control"
+                                        placeholder="Search Subscriber" list="subscriberList" autocomplete="off"
+                                        required>
+                                    <datalist id="subscriberList">
+                                        <!-- Subscribers will be dynamically added here -->
+                                    </datalist>
+                                    <div class="invalid-feedback" id="subscriberFeedback">Please select a subscriber.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="messageContent" class="form-label">Message Content</label>
+                                    <textarea id="messageContent" class="form-control" rows="4"
+                                        placeholder="Enter custom message" required></textarea>
+                                    <div class="invalid-feedback" id="messageFeedback">Please enter a valid message (at
+                                        least 10 characters).</div>
+                                </div>
+                                <!-- Send Button -->
+                                <button type="submit" class="btn btn-primary">Send Notification</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Notification History -->
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 style="text-align: center;">Notification History</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <input type="text" id="searchInput" class="form-control mb-2"
+                                    placeholder="Search by Date or Status">
+                            </div>
+
+                            <!-- Notification History Table -->
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover" id="notificationHistoryTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Notification ID</th>
+                                            <th>Subscriber Name</th>
+                                            <th>Mobile Number</th>
+                                            <th>Message</th>
+                                            <th>Date Sent</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="notificationHistoryList">
+                                        <!-- Table rows will be dynamically populated -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Management -->
+
+        <div id="profile" class="page">
+            <h3 class="text-center">Admin Profile</h3>
+            <div class="container p-4 border rounded bg-white shadow-sm" style="max-width: 500px;">
+                <div class="text-center">
+                    <!-- Profile Image Update -->
+                    <label for="profileImageInput">
+                        <img id="profileImage" src="Images/profile.jpeg" alt="User Image" class="rounded-circle mb-3"
+                            width="120" height="120" style="cursor: pointer;">
+                    </label>
+                    <input type="file" id="profileImageInput" accept="image/png, image/jpeg, image/jpg"
+                        style="display: none;">
+                    <p class="text-danger mt-1" id="imageMessage" style="display: none; font-size: 14px;"></p>
+
+                    <h4 class="mb-1" id="displayUserName">Admin</h4>
+                    <p class="text-muted">Administrator</p>
+                </div>
+
+                <hr>
+
+                <div class="mb-3">
+                    <label class="form-label"><strong>Name:</strong></label>
+                    <input type="text" class="form-control" id="userName" value="Admin">
+                    <p class="text-danger mt-1" id="userNameMessage" style="display: none; font-size: 14px;"></p>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label"><strong>Email:</strong></label>
+                    <input type="email" class="form-control" id="email" value="admin@mobicomm.com" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label"><strong>Address:</strong></label>
+                    <textarea id="address" class="form-control" rows="2">Admin Office, Chennai, India</textarea>
+                    <p class="text-danger mt-1" id="addressMessage" style="display: none; font-size: 14px;"></p>
+                </div>
+
+                <hr>
+
+                <h5>Change Password</h5>
+
+                <div class="mb-3">
+                    <label class="form-label"><strong>New Password:</strong></label>
+                    <input type="password" id="newPassword" class="form-control" placeholder="Enter new password">
+                    <p class="text-danger mt-1" id="newPasswordMessage" style="display: none; font-size: 14px;"></p>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label"><strong>Confirm New Password:</strong></label>
+                    <input type="password" id="confirmNewPassword" class="form-control"
+                        placeholder="Confirm new password">
+                    <p class="text-danger mt-1" id="confirmNewPasswordMessage" style="display: none; font-size: 14px;">
+                    </p>
+                </div>
+
+                <button type="button" id="updateProfileBtn" class="btn btn-primary w-100">Update</button>
+                <p class="text-success mt-2" id="successMessage"
+                    style="display: none; font-size: 14px; text-align: center;">Profile updated successfully!</p>
+            </div>
+        </div>
+
+
+        <!-- Report & Analaysis -->
+
+        <div id="reportAndAnalysis" class="page">
+            <h2 class="text-center">Reports & Analytics</h2>
+
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Revenue</h5>
+                            <p class="card-text">₹10,50,000 (This Month)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-success mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Recharges</h5>
+                            <p class="card-text">12,400 (This Month)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-warning mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">New Subscribers</h5>
+                            <p class="card-text">850 (Last 30 Days)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-danger mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"> Expiring Plans</h5>
+                            <p class="card-text">320 Users (Next 3 Days)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body chart-container">
+                            <h5 class="card-title">Revenue Overview</h5>
+                            <canvas id="revenueChart" style="max-width: 100%; height: auto;"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body chart-container">
+                            <h5 class="card-title">Daily Recharge Volume</h5>
+                            <canvas id="dailyRechargeChart" style="max-width: 100%; height: auto;"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body chart-container small-chart">
+                            <h5 class="card-title">Recharge Plan Popularity</h5>
+                            <canvas id="rechargePlanChart" style="max-width: 100%; height: auto;"></canvas>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body chart-container small-chart">
+                            <h5 class="card-title">Payment Mode Distribution</h5>
+                            <canvas id="paymentModeChart" style="max-width: 100%; height: auto;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-md-6 footer-column mb-4 mb-md-0">
+                    <h5>About Mobi.Comm</h5>
+                    <p>We provide quick and secure mobile recharges for prepaid users. Our goal is to make recharge
+                        services simple, efficient, and accessible.</p>
+                </div>
+                <div class="col-md-6 footer-column">
+                    <h5>Contact</h5>
+                    <p>Email: <a href="mailto:support@mobi.comm">support@mobi.comm</a></p>
+                    <p>Phone: +1 234 567 890</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom text-center mt-4">
+                <p>&copy; 2025 Mobi.Comm - All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.24/jspdf.plugin.autotable.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
