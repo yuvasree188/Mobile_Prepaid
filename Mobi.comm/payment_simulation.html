@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recharge Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        .navbar { background: linear-gradient(90deg, #009688, #00796B); }
+        .navbar-brand { font-size: 2rem; font-weight: bold; color: #FFD700 !important; }
+        .nav-link { color: white !important; font-size: 1.2rem; }
+        .avatar-icon { width: 40px; height: 40px; border-radius: 50%; background-color: #ffffff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease-in-out; }
+        .avatar-icon:hover { background-color:  #FFD700; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); transform: scale(1.1); }
+        .card { border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+        .btn-primary { background-color: #009688; border: none; }
+        .btn-primary:hover { background-color: #b4f0e9; }
+        .hidden { display: none; }
+        .error-message { color: red; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Mobi.Comm</a>
+            <div class="dropdown">
+                <div class="avatar-icon" data-bs-toggle="dropdown">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="col-md-6">
+            <div id="recharge-section" class="card p-4 bg-white">
+                <h3 class="text-center mb-3">Recharge Plan</h3>
+                <p class="text-center"><strong>Plan Selected:</strong> <span id="planDetails" class="fw-bold text-primary"></span></p>
+                <div class="mb-3">
+                    <label class="form-label"><strong>Select Payment Method:</strong></label>
+                    <select id="paymentMethod" class="form-control">
+                        <option value="" disabled selected>--Select Payment Method--</option>
+                        <option value="credit">Credit Card</option>
+                        <option value="upi">UPI</option>
+                        <option value="netbanking">Net Banking</option>
+                    </select>
+                </div>
+                <div id="payment-form"></div>
+                <div id="error-message" class="error-message"></div>
+                <button id="checkoutBtn" class="btn btn-primary w-100 mt-3">Proceed to Payment</button>
+            </div>
+            <div id="success-section" class="card p-4 bg-white text-center hidden">
+                <h3 class="text-success">Recharge Successful! 🎉</h3>
+                <p class="mt-2">Your recharge was successfully completed.</p>
+                <div class="invoice p-3 border rounded bg-light">
+                    <h5 class="text-center text-primary">Invoice Details</h5>
+                    <p><strong>Plan:</strong> <span id="invoicePlan"></span></p>
+                    <p><strong>Amount:</strong> ₹<span id="invoiceAmount"></span></p>
+                    <p><strong>Validity:</strong> <span id="invoiceValidity"></span></p>
+                    <p><strong>Data:</strong> <span id="invoiceData"></span></p>
+                    <p><strong>Payment Method:</strong> <span id="invoicePayment"></span></p>
+                    <p id="invoicePaymentDetails"></p>
+                </div>
+                <button id="downloadInvoice" class="btn btn-warning w-100 mt-3">Download Invoice</button>
+                <button id="backHome" class="btn btn-success w-100 mt-2">Back to Home</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const params = new URLSearchParams(window.location.search);document.getElementById("planDetails").innerText = 
+    `${params.get("name")} | ₹${params.get("price")} | ${params.get("validity")} | ${params.get("data")}`;
+
+            
+            document.getElementById("paymentMethod").addEventListener("change", function () {
+                let method = this.value;
+                let formHTML = "";
+    
+                if (method === "credit") {
+                    formHTML = `
+                        <label>Bank Name:</label>
+                        <input type='text' class='form-control' id='bankName' placeholder='Enter Bank Name' required>
+                        <span class='error-message' id='bankNameError'></span>
+                        
+                        <label>Card Holder Name:</label>
+                        <input type='text' class='form-control' id='cardHolder' placeholder='Enter Card Holder Name' required>
+                        <span class='error-message' id='cardHolderError'></span>
+                        
+                        <label>Card Number:</label>
+                        <input type='text' class='form-control' id='cardNumber' placeholder='1234 5678 9012 3456' required pattern='\\d{16}'>
+                        <span class='error-message' id='cardNumberError'></span>
+                        
+                        <label>Expiry Date:</label>
+                        <input type='text' class='form-control' id='expiryDate' placeholder='MM/YY' required pattern='(0[1-9]|1[0-2])\\/\\d{2}'>
+                        <span class='error-message' id='expiryDateError'></span>
+                        
+                        <label>CVV:</label>
+                        <input type='password' class='form-control' id='cvv' placeholder='***' required pattern='\\d{3}'>
+                        <span class='error-message' id='cvvError'></span>
+                    `;
+                } else if (method === "upi") {
+                    formHTML = `
+                        <label>UPI ID:</label>
+                        <input type='text' class='form-control' id='upiId' placeholder='example@upi' required pattern='[a-zA-Z0-9.]+@[a-zA-Z]+'>
+                        <span class='error-message' id='upiIdError'></span>
+                        
+                        <label>UPI Password:</label>
+                        <input type='password' class='form-control' id='upiPassword' placeholder='Enter UPI Password' required>
+                        <span class='error-message' id='upiPasswordError'></span>
+                    `;
+                } else if (method === "netbanking") {
+                    formHTML = `
+                        <label>Bank Name:</label>
+                        <input type='text' class='form-control' id='netBankName' placeholder='Enter Bank Name' required>
+                        <span class='error-message' id='netBankNameError'></span>
+                        
+                        <label>Bank Account Number:</label>
+                        <input type='text' class='form-control' id='accountNumber' placeholder='Enter Account Number' required pattern='\\d{9,18}'>
+                        <span class='error-message' id='accountNumberError'></span>
+                    `;
+                }
+    
+                document.getElementById("payment-form").innerHTML = formHTML;
+                addValidationListeners();
+            });
+    
+            function addValidationListeners() {
+                document.querySelectorAll("#payment-form input").forEach(input => {
+                    input.addEventListener("input", function () {
+                        validateInput(this);
+                    });
+                });
+            }
+    
+            function validateInput(input) {
+                const errorSpan = document.getElementById(input.id + "Error");
+                if (!input.value.trim()) {
+                    errorSpan.innerText = "This field is required";
+                } else if (!input.checkValidity()) {
+                    errorSpan.innerText = "Invalid format";
+                } else {
+                    errorSpan.innerText = "";
+                }
+            }
+    
+            document.getElementById("checkoutBtn").addEventListener("click", function () {
+                const selectedPayment = document.getElementById("paymentMethod").value;
+                if (!selectedPayment) {
+                    alert("Please select a payment method.");
+                    return;
+                }
+    
+                let isValid = true;
+                document.querySelectorAll("#payment-form input").forEach(input => {
+                    validateInput(input);
+                    if (!input.checkValidity()) {
+                        isValid = false;
+                    }
+                });
+    
+                if (!isValid) return;
+    
+                document.getElementById("recharge-section").classList.add("hidden");
+                document.getElementById("success-section").classList.remove("hidden");
+    
+                document.getElementById("invoicePlan").innerText = params.get("name");
+                document.getElementById("invoiceAmount").innerText = `${params.get("price")}`;
+                document.getElementById("invoiceValidity").innerText = params.get("validity");
+                document.getElementById("invoiceData").innerText = params.get("data");
+                document.getElementById("invoicePayment").innerText = selectedPayment;
+    
+                let paymentDetails = "";
+                if (selectedPayment === "credit") {
+                    paymentDetails = `Bank: ${document.getElementById("bankName").value}, Card Number: **** **** **** ${document.getElementById("cardNumber").value.slice(-4)}`;
+                } else if (selectedPayment === "upi") {
+                    paymentDetails = `UPI ID: ${document.getElementById("upiId").value}`;
+                } else if (selectedPayment === "netbanking") {
+                    paymentDetails = `Bank: ${document.getElementById("netBankName").value}, Account Number: ****${document.getElementById("accountNumber").value.slice(-4)}`;
+                }
+    
+                document.getElementById("invoicePayment").innerText = `${selectedPayment.toUpperCase()} (${paymentDetails})`;
+            });
+    
+            document.getElementById("downloadInvoice").addEventListener("click", function () {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                doc.text("Recharge Invoice", 20, 20);
+                doc.text(`Plan: ₹${params.get("price")}`, 20, 30);
+                doc.text(`Amount: ₹${params.get("price")}`, 20, 40);
+                doc.text(`Validity: ${params.get("validity")}`, 20, 50);
+                doc.text(`Data: ${params.get("data")}`, 20, 60);
+                doc.text(`Payment Method: ${document.getElementById("invoicePayment").innerText}`, 20, 70);
+                doc.save("Invoice.pdf");
+            });
+    
+            document.getElementById("backHome").addEventListener("click", function () {
+                window.location.href = "user.html";
+            });
+
+            let invoiceMessage = document.createElement("p");
+        invoiceMessage.innerText = "Your invoice has been sent to your registered email ID.";
+        invoiceMessage.classList.add("text-info", "mt-3");
+        document.getElementById("success-section").appendChild(invoiceMessage);
+          
+        });
+    </script>
+    
+</body>
+</html>
